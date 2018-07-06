@@ -1,0 +1,19 @@
+$[season]	season	spring|summer|autumn|winter
+$[month]	month	1|2|3|4|5|6|7|8|9|10|11|12
+$[singlecity]	single_city	Y|N
+$[tripfirstday]	trip_first_day	Y|N
+$[triplastday]	trip_last_day	Y|N
+$[cityfirstday]	city_first_day	Y|N
+$[citylastday]	city_last_day	Y|N
+$[hotlevel]	hot_level	hottest|hot|ok
+$[dur]	dur	allday|mostday|forenoon|afternoon|halfday
+#[play]	play	deep|ok|fast
+$[starttime]	start_time	early|morning|forenoon|afternoon|nightfall|evening
+$[endtime]	end_time	early|morning|forenoon|afternoon|nightfall|evening
+$[startpoi]	start_poi	hotel|airport|station|city|view
+$[endpoi]	end_poi	hotel|airport|station|city|view
+$[viewnum]	view_num	no|single|seldom|some|many
+$[viewdistance]	view_distance	near|middle|far
+$[singlemainview]	single_main_view	Y|N
+$[viewlocate]	view_locate	near|center|suburb
+$[feature]	feature	文明古城|温泉胜地|一个人的旅程|骑行|蜜月|闺蜜|赏花|海岛|徒步|夜景|人气餐厅|当地美食|老字号|名人光顾|街头小吃|主题餐厅|中东菜|意大利菜|印度菜|素食|创意餐|西式简餐|咖啡店|面包甜点|火锅|快餐|酒吧酒馆|下午茶|烧烤|米其林餐厅|特色街区|生活休闲|半自助游|直飞|名人故居|公园乐园|尾单|远期预售|纯玩|成团保障|博物馆|宗教|艺术|文化|自然风光|建筑人文|历史遗迹|娱乐|运动|自助餐|海鲜|大型超市|购物街|免税店|特色商店|传统市场|连锁品牌店|奥特莱斯/折扣村|百货商城|跳伞|热气球|单景点门票|漂流|多景点套票|丛林飞跃|射击|直升机|ATV越野车|赛事|汗蒸|SPA|课程体验|温泉|滑雪|演出|特色服装|禅修|端午|五一|清明|春节|毕业旅行|暑假|寒假|十一|陪父母|亲子游|主题乐园|动物世界|日落|博物馆|教堂|潜水胜地|海外血拼|自驾路线|吃货路线|元旦|极光|城堡|直升机|极限运动|滑雪|星空|电影取景地|登山|高尔夫|最美大学|奢华产品 |清真菜|墨西哥菜|日本料理|韩国料理|西餐|东南亚菜|其他|中餐|法国菜|著名景点

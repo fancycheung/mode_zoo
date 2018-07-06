@@ -1,0 +1,3 @@
+NAME::hlt_1
+PATTERN::NULL
+OUTPUT::初识$[day->city(0)]，体验魅力$[day->city(0)]
