@@ -18,9 +18,14 @@ import random
 DATE_FORMAT = "%Y%m%d"
 TIME_FORMAT = "%Y%m%d_%H:%M"
  
-# 一个行程Feature
+# 基础数据database
 BASEDATA_IP = "10.10.99.230"
 BASEDATA_DB = "base_data_test"
+
+# 景点特色标注数据database
+LABELDATA_IP = "10.19.12.158"
+LABELDATA_DB = "mioji_label"
+CONTENT_TABLE = "attracion_online_content"
 
 # 模板实体对应
 ENTITY_INDEX = {"route":0, "day":1, "poi":2}
