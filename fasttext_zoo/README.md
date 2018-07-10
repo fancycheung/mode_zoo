@@ -16,25 +16,25 @@ pattern_module_utils.py "模板模块相关脚本" <br>
 
 ---------
 
-## *使用方法* <br>
+## *使用方法* 
 * 同步预训练的词向量
-> 从"caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/fasttext/data"的"multi_ft_en_train_cbow_300d.vec"为训练好的300维英文词向量、"daodao_zh_word2vec.txt"是200维中文向量.将它们同步到本地的"./data/"目录下.<br>
+> 从"caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/fasttext/data"的"multi_ft_en_train_cbow_300d.vec"为训练好的300维英文词向量、"daodao_zh_word2vec.txt"是200维中文向量.将它们同步到本地的"./data/"目录下.
 * 同步训练好的模型
-> 将"caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/fasttext/model"里面中英文模型同步到本地"./model/"目录下<br>	
+> 将"caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/fasttext/model"里面中英文模型同步到本地"./model/"目录下
 * 文本预处理
-> 文本预处理 "python ft_utils.py --inf input.txt --out output.txt --lang zh --mode 1",中文会自动用jieba进行分词.<br>
+> 文本预处理 "python ft_utils.py --inf input.txt --out output.txt --lang zh --mode 1",中文会自动用jieba进行分词.
 * 加权采样
-> 由于标签样本不平衡，可尝试加权采样样本用来训练模型.加权采样制作训练文本 "python ft_utils.py --inf input.txt --out output.txt --lang zh --mode 2" <br>
+> 由于标签样本不平衡，可尝试加权采样样本用来训练模型.加权采样制作训练文本 "python ft_utils.py --inf input.txt --out output.txt --lang zh --mode 2" 
 * 训练、预测fasttext
-> 训练 "python2.7 ft_model_in_py2.py --train 1 --lang zh",fasttext安装在python2.7上,若是python3需要修改代码.训练集、验证集在代码里写死了,可以在里面修改<br>
-> 预测 "python2.7 ft_model_in_py2.py --train 0 --lang zh --gate 0.1" <br>
-> 格式化结果，便于查看 "python ft_utils.py --inf input.txt --mode 3" <br>
+> 训练 "python2.7 ft_model_in_py2.py --train 1 --lang zh",fasttext安装在python2.7上,若是python3需要修改代码.训练集、验证集在代码里写死了,可以在里面修改
+> 预测 "python2.7 ft_model_in_py2.py --train 0 --lang zh --gate 0.1" 
+> 格式化结果，便于查看 "python ft_utils.py --inf input.txt --mode 3"
 
 
 ## *酒店评论数据集* <br>
 * 描述
 > "caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/merge_source_id"目录下,文档是从原始酒店评论目录下汇总而来，
-一个源一个文件."comment_len_pickle"为各源各语言字词长度统计."split_lang_*"为最终四个源，按语言归类.<br>
+一个源一个文件."comment_len_pickle"为各源各语言字词长度统计."split_lang_*"为最终四个源，按语言归类.
 
 
 
