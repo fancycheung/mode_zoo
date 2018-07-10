@@ -36,7 +36,9 @@ pattern_module_utils.py "模板模块相关脚本" <br>
 * 训练、预测fasttext <br>
 
 > 训练 "python2.7 ft_model_in_py2.py --train 1 --lang zh",fasttext安装在python2.7上,若是python3需要修改代码.训练集、验证集在代码里写死了,可以在里面修改
+
 > 预测 "python2.7 ft_model_in_py2.py --train 0 --lang zh --gate 0.1" 
+
 > 格式化结果，便于查看 "python ft_utils.py --inf input.txt --mode 3"
 
 

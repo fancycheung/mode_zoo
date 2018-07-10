@@ -16,7 +16,9 @@ cache_pickle "缓存的中英文词向量、训练集、验证集" <br>
 * 同步词向量、训练好的模型 <br>
 
 > 同步"caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/textcnn/cache_pickle"下的词向量、训练集、验证集等缓存到本地"./cache_pickle/"目录下 
+
 > 同步"caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/textcnn/textcnn_checkpoint_zh"到本地"./textcnn_checkpoint_zh/" 
+
 > 同步"caozhaojun@10-10-144-26:/data/caozhaojun/model_weight/textcnn/textcnn_checkpoint_en"到本地"./textcnn_checkpoint_en/"
 
 * 文本预处理 <br>
@@ -30,6 +32,7 @@ cache_pickle "缓存的中英文词向量、训练集、验证集" <br>
 * 训练、预测 <br>
 
 > 训练 "python textcnn\_train.py" "修改文件内全局变量'\_LANG'分别训练中英文" 
+
 > 预测 "python textcnn\_predict.py" 结果保存到result_zh.txt或result_en.txt 
 
 
