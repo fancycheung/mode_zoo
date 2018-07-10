@@ -67,7 +67,6 @@ if __name__ == "__main__":
     parser.add_argument('--gate',default=None,type=float)
     parser.add_argument('--lang', default="zh")
     parser.add_argument('--train',default=0,type=int)
-    parser.add_argument('--weight',default=0,type=int)
     parser.add_argument('--view',default=0,type=int)
     parser.add_argument('--lr',default=0.2,type=float)
     parser.add_argument('--lr_update',default=50,type=int)
@@ -78,10 +77,7 @@ if __name__ == "__main__":
     view = args.view
     if args.train == 1:
         print(args)
-        if weight:
-            file = "./data/ft_%s_weighted.train" % lang
-        else:
-            file = "./data/ft_%s.train" % lang
+        file = "./data/ft_%s.train" % lang
         if lang == "zh":
             if weight:
                 model_path = "./model/ft_format_zh_200d_weight"
@@ -90,31 +86,19 @@ if __name__ == "__main__":
             vec_path = './data/daodao_zh_word2vec.txt'
             classifier = fasttext.supervised(file,model_path,label_prefix='__label__',epoch=50,dim=200,min_count=5,pretrained_vectors=vec_path,lr=args.lr,lr_update_rate=args.lr_update)
         elif lang == "en":
-            if weight:
-                model_path = "./model/ft_format_en_300d_weight"
-            else:
-                model_path = "./model/ft_format_en_300d"
+            model_path = "./model/ft_format_en_300d"
             vec_path = "./data/multi_ft_en_train_cbow_300d.vec"
             classifier = fasttext.supervised(file,model_path,label_prefix='__label__',epoch=50,dim=300,min_count=5,pretrained_vectors=vec_path,lr=args.lr,lr_update_rate=args.lr_update)
         print("train end!")
 
     if args.train == 0:
         if lang == 'zh':
-            if weight:
-                model_path = "./model/ft_format_zh_200d_weight.bin"
-            else:
-                model_path = "./model/ft_format_zh_200d.bin"
+            model_path = "./model/ft_format_zh_200d.bin"
         elif lang == "en":
-            if weight:
-                model_path = "./model/ft_format_en_300d_weight.bin"
-            else:
-                model_path = "./model/ft_format_en_300d.bin"
+            model_path = "./model/ft_format_en_300d.bin"
         classifier = fasttext.load_model(model_path,label_prefix='__label__',encoding='utf-8')
         test_data = "./data/ft_%s.eval" % lang
-        if weight:
-            out_file = "./data/predict_ft_%s_weighted_%.2f" % (lang,gate)
-        else:
-            out_file = "./data/predict_ft_%s_%.2f" % (lang,gate)
+        out_file = "./data/predict_ft_%s_%.2f" % (lang,gate)
         if not view:
             predict_format_result_multi(test_data,out_file,gate=gate)
         if view:
