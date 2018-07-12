@@ -13,7 +13,7 @@ import sys
 import  pattern_module_utils as pm
 import procress_data as pre
 
-def clear_text_func(file,lang,outfile,write=False):
+def clear_text_func(file,lang,outfile,write=True):
     clear_texts = []
     with open(file,"r") as f:
         line_id = 0
@@ -45,9 +45,7 @@ if __name__ == "__main__":
     if not os.path.exists(args.save_dir):
         os.makedirs(args.save_dir)
 
-    
-
-    
+    #clear_text_func(file,lang,outfile,write=True)   
 
 
 

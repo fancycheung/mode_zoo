@@ -47,34 +47,15 @@ def load_data(file1,file2,gate):
 if __name__ == "__main__":
    # file1 = "/data/caozhaojun/true_procress_data/procressed_data_new/multi_ft_format_en_test_predict.txt"
    # file2 = "/data/caozhaojun/true_procress_data/procressed_data_new/multi_ft_format_en_test.txt"
-   # file1_1 = "/data/caozhaojun/true_procress_data/procressed_data_new/multi_ft_format_en_test_pattern_predict.txt"
-   # print("evaluate pattern")
-   # load_data(file1_1,file2)
-   # file1_2 = "/data/caozhaojun/true_procress_data/procressed_data_new/multi_ft_format_en_test_ft_predict.txt"
-   # print("evaluate fasttext")
-   # load_data(file1_2,file2)
-   # file1_3 = "/data/caozhaojun/true_procress_data/procressed_data_new/multi_ft_format_en_test_tc_predict.txt"
-   # print("evaluate textcnn")
-   # load_data(file1_3,file2)
-    
-   # print("pattern fasttext")
-   # load_data(file1_1,file1_2)
-
-    #print("pattern textcnn")
-    #load_data(file1_1,file1_3)
-
-   # print("fasttext test")
-   # load_data(file2,file1_2)
-
-   # print("pattern test")
-   # load_data(file2,file1_1
     parser = argparse.ArgumentParser()
     parser.add_argument("--gate",type=float)
     parser.add_argument("--lang")
     args = parser.parse_args()
     lang = args.lang
     gate = args.gate
-
+    print("add input file yourself!")
+    #load_data(file2,file1,gate=gate)
+    '''
     print("fasttext")
     print(lang,gate)
     langs = ["en","zh"]
@@ -87,6 +68,7 @@ if __name__ == "__main__":
             file2_1 = "./data/predict_ft_%s_%.2f" % (lang,gate)
             file2_2 = "./data/predict_ft_%s_weighted_%.2f" % (lang,gate)
             load_data(file2_1,file1,gate=gate)
+    '''
    #         load_data(file2_2,file1,gate=gate)
 #    print("pattern")
 #    file2_2 = "/data/caoizhaojun/true_procress_data/procressed_data_new/test_result/multi_ft_format_%s_test_pattern_predict.txt" % lang

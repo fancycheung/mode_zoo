@@ -10,6 +10,8 @@ import numpy as np
 repls = punctuation_dict()
 
 def xlsx_to_ft_format_label(file,f_train,f_eval,lang):
+    '''从标注数据excel表格转为fasttext格式，当前是用16个一级标签，以后训练样本多了可尝试200个的三级标签'''
+    
     if lang == "zh":
         print("load zh!")
         data = pd.read_excel(file,sheet_name="中文1",header=0)
@@ -38,7 +40,7 @@ def xlsx_to_ft_format_label(file,f_train,f_eval,lang):
                 assert j in label_set,"line %d" % i
             final_label = " ".join(["__label__"+x for x in split_label])
 
-        if lang== "zh" and i > 820 and i <1000:
+        if lang== "zh" and i > 820 and i <1000: # 当前820到1000的样本标注有问题，过滤掉。
                 continue
         if lang == "zh":
             seg_comment = jieba.cut(comment)

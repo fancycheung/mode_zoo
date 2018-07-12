@@ -20,7 +20,7 @@ from random import shuffle
 
 
 def clean_str(string):
-    ''' en '''
+    '''英文文本终极处理'''
     string = re.sub(r"[^A-Za-z0-9(),.!?\'\`]", " ", string)     
     string = re.sub(r"\'s", " \'s", string) 
     string = re.sub(r"\'ve", " \'ve", string) 
@@ -42,6 +42,7 @@ def clean_str(string):
     return string.strip().lower()
 
 def procress_en_data(file,out_file):
+    '''处理英文文件'''
     with open(out_file,'w') as out_f:
         with open(file,'r') as in_f:
             all_line = in_f.readlines()
@@ -50,6 +51,7 @@ def procress_en_data(file,out_file):
                 out_f.write(new_line+'\n')
 
 def procress_zh_data(file,out_file):
+    '''处理中文文件'''
     with open(out_file,'w') as out_f:
         with open(file,'r') as in_f:
             for line in tqdm(in_f.readlines()):
@@ -58,9 +60,8 @@ def procress_zh_data(file,out_file):
                 text = clean_zh(text)
                 out_f.write(text)
 
-        
 def comment_sents_en_id(file,out_file):
-    '''返回：行id + 分句id + 评论'''
+    '''英文文本初级处理，将一个评论按句分割，返回：行id + 分句id + 评论'''
     with open(out_file,'w') as out_f:
         with open(file,'r') as in_f:
             line_id = 0
@@ -74,9 +75,8 @@ def comment_sents_en_id(file,out_file):
                 sents = text.split("\n")
                 sent_id = 1
                 for item in sents:
-                    if len(item) < 3:
+                    if len(item) < 3: #过滤长度小于3的行
                         continue
-#                    if line_id > tmp_len:
                     prefix = str(line_id)+'-'+str(sent_id)
                     sent_id += 1
                     final_line = prefix+' '+item+"\n"
@@ -84,11 +84,13 @@ def comment_sents_en_id(file,out_file):
                     out_f.write(final_line.lower())
 
 def clear_en_line(line):
+    '''处理英文，过滤换行符'''
     line = clean_str(line)
     line = line.replace("\n","")
     return line
 
 def comment_sents_en_line(line):
+    '''英文测试集处理，输入一个评论，输出处理后且分句的list'''
     line_list = []
     line = clear_en_line(line)
     text = line.replace(". ","\n")
@@ -103,6 +105,7 @@ def comment_sents_en_line(line):
     return line_list
 
 def clear_zh_line(line):
+    '''处理中文文本'''
     text = normal.zh2hans(line)
     text = normalize_text(text)
     text = clean_zh(text)
@@ -110,6 +113,7 @@ def clear_zh_line(line):
     return text
 
 def comment_sents_zh_line(line):
+    '''中文测试集处理，输入一个评论，输出处理后且分句的list'''
     line_list = []
     text = clear_zh_line(line)
     text = text.replace("。","\n")
@@ -123,6 +127,7 @@ def comment_sents_zh_line(line):
 
 
 def comment_sents_zh_id(file,out_file,flag=True):
+    '''中文文本初级处理，将一个评论按句分割，返回：行id + 分句id + 评论'''
     with open(out_file,'w') as out_f:
         with open(file,'r') as in_f:
             line_id = 0
@@ -130,8 +135,6 @@ def comment_sents_zh_id(file,out_file,flag=True):
             tmp_len = len(all_line) - 499
             for line in tqdm(all_line):
                 line_id += 1
-                   # sent_tokens = normal.zh2hans(line)
-                   # sents = normal.get_sentences(sent_tokens)
                 if flag==True:
                     text = normal.zh2hans(line)
                     text = normalize_text(text)
@@ -142,7 +145,7 @@ def comment_sents_zh_id(file,out_file,flag=True):
                     sents = text.split("\n")
                     sent_id = 1
                     for item in sents:
-                        if len(item) < 3:
+                        if len(item) < 3: #过滤长度小于3的行
                             continue
                         else:
                             prefix = str(line_id)+'-'+str(sent_id)
@@ -153,6 +156,7 @@ def comment_sents_zh_id(file,out_file,flag=True):
 
 
 def extract_test_data(file,out_file,n=None):
+    '''从初级处理后的文件中，选取后面行，去掉行id，制作测试集'''
     with open(out_file,'w') as out_f:
         with open(file,'r') as in_f:
             for line in tqdm(in_f.readlines()):
@@ -162,6 +166,7 @@ def extract_test_data(file,out_file,n=None):
                     out_f.write(line)
 
 def punctuation_dict():
+  '''中文特殊符号'''
   cpun = [['	'],
           [u'﹗'],
           [u'“', u'゛', u'〃', u'′'],
@@ -196,6 +201,7 @@ def punctuation_dict():
 repls = punctuation_dict()
 
 def normalize_text(text):
+  '''处理中文，归一化特殊符号，全角转半角'''
   text = replace_all(repls,text)
   text = "".join([Q2B(c) for c in list(text)])
   return text
@@ -217,6 +223,7 @@ def Q2B(char):
   return chr(inside_code)
 
 def clean_zh(text):
+    '''去掉重复符号'''
     text = re.sub(r"-{1,}", ",",text)
     text = re.sub(r"!{2,}", "!",text)
     text = re.sub(r"。{2,}", "。",text)
@@ -226,6 +233,7 @@ def clean_zh(text):
     return text
 
 def clean_zh_seg_coment(line):
+    '''中文终极处理，去掉数字、英文等'''
     sent_comment = " ".join(line)#zh
     sent_comment = sent_comment.replace("!","") #z
     sent_comment = sent_comment.replace("?","") #zh
@@ -241,6 +249,7 @@ def clean_zh_seg_coment(line):
     return sent_comment
 
 def make_test_data_for_evaluate(infile,outfile,lang="en"):
+    '''从fasttext格式数据集中，处理分别处理中英文本，中文需要分词'''
     pattern = re.compile(r"(\b__label__(\S+))")
     with open(outfile,'w') as out_f:
         with open(infile,'r') as in_f:

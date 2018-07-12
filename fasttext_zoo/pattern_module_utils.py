@@ -210,11 +210,12 @@ def create_null_test_data(file,out_file):
                 out_f.write(comment)
 
 if __name__ == "__main__":
-#    pack_infile('/data/caozhaojun/true_procress_data/procressed_data_new/procressed_daodao_zh_shuffle.txt','./procressed_data_new/procressed_daodao_zh_shuffle_packed.txt')
+
+#    pack_infile('/data/caozhaojun/true_procress_data/procressed_data_new/procressed_daodao_zh_shuffle.txt','./procressed_data_new/procressed_daodao_zh_shuffle_packed.txt') ##对输入文件，按行打包，从而输出为C++模板程序能够识别的文件
 #    pack_infile('/data/caozhaojun/true_procress_data/procressed_data_new/multi_ft_format_zh_test_null.txt','./procressed_data_new/multi_ft_format_zh_test_null_packed.txt')
 #    in_file = '/data/caozhaojun/zh_result.txt'
 #    out_file = './procressed_data_new/test_zh_result_unpack.txt'
-#    unpack_outfile(in_file,out_file)
+#    unpack_outfile(in_file,out_file)  ## 对c++模板程序的结果进行解包
 
 #    in_file = './procressed_data_new/procressed_daodao_zh_shuffle_packed_result.txt'
 #    out_file = './procressed_data_new/procressed_daodao_zh_shuffle_packed_result_unpack.txt'

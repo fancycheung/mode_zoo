@@ -8,6 +8,7 @@ from random import shuffle
 import numpy as np
 
 def process_each_comment(comment,save_dir,lang="en"):
+    '''处理输入评论，一个评论处理、分句，从而按句输入模型'''
     if lang == "en":
         line_list = comment_sents_en_line(comment)
     elif lang == "zh":
@@ -18,6 +19,7 @@ def process_each_comment(comment,save_dir,lang="en"):
 
 
 def sample_weighted(infile,outfile):
+    '''对输入评论按标签数量采样，少的标签多采样'''
     pattern = re.compile(r"(\b__label__(\S+))")
     count = Counter()
     with open(infile,'r') as in_f:
@@ -37,7 +39,7 @@ def sample_weighted(infile,outfile):
                 label_len = ' '.join([item[0] for item in find])
                 comment = line[len(label_len):].strip()
                 if len(comment) > 2:
-                    values = [5]
+                    values = [5] # 设定最多采样5次
                     for item in label:
                         value = count.get(item)
                         if value is not None:
@@ -52,6 +54,7 @@ def sample_weighted(infile,outfile):
                 out_f.write(line)
 
 def file_for_view(infile,outfile):
+    '''格式化输出结果，便于查看'''
     pattern = re.compile(r"(\b__label__(\S+))")
     with open(infile,'r') as in_f:
         with open(outfile,"w") as out_f:
