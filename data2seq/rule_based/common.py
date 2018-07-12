@@ -25,7 +25,7 @@ BASEDATA_DB = "base_data_test"
 # 景点特色标注数据database
 LABELDATA_IP = "10.19.12.158"
 LABELDATA_DB = "mioji_label"
-CONTENT_TABLE = "attracion_online_content"
+CONTENT_TABLE = "attraction_online_content"
 
 # 模板实体对应
 ENTITY_INDEX = {"route":0, "day":1, "poi":2}
@@ -206,9 +206,9 @@ def get_dur_desc(dur):
         hour = dur / 60
         minute = dur % 60
         if minute < 30:
-            desc = "约" + NUM_TO_ZI[hour] + "个半小时"
+            desc = "[约|大约|大概|大致]" + NUM_TO_ZI[hour] + "个半小时"
         else:
-            desc = "约" + NUM_TO_ZI[hour+1] + "个小时"
+            desc = "[约|大约|大概|大致]" + NUM_TO_ZI[hour+1] + "个小时"
     
     return desc
 
@@ -216,6 +216,19 @@ def get_moment_by_time(time):
     
     # FIXME 优化特征
     return get_time_range(time)
+
+def get_util_intro(city,view):
+    
+    # 获取景点的默认介绍
+    city_intro = ""
+    if city is not None:
+        city_intro = city.name + "的"
+    else:
+        city_intro = "当地的"
+
+    intro = view.name + "是" + city_intro + "著名景点"
+
+    return intro
     
 if __name__ == "__main__":
 

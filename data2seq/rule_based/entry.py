@@ -14,7 +14,7 @@ from common_class import *
 from data_loader import load_model, load_database, load_special_model, load_virtual_POI, cross_validate
 from route_parser import data_parser
 from feature_parser import feature_parser
-from debugger import route_sketch_debugger, rdd_debugger, rdf_debugger
+from debugger import *
 
 # 加载静态数据
 WORDS, FEATURES, CORPUS, ENTRIES, SENTENCES, HIGHLIGHTS = {},{},{},{},{},{}
@@ -169,7 +169,7 @@ def gen_day_desc(route,rdf):
 # 生成一天的行程亮点
 def gen_day_highlight(route,rdf):
     
-    return "Not Implented Yet"
+    return "暂未实现每日亮点功能"
 
 # 入口
 def highlight_gen(routeData):
@@ -190,15 +190,27 @@ def highlight_gen(routeData):
         route.desc_by_day.append(desc)
 
         # 生成行程亮点
-        #highlight = gen_day_highlight(route,rdf)
-        #route.highlight_by_day.append(highlight)
+        highlight = gen_day_highlight(route,rdf)
+        route.highlight_by_day.append(highlight)
+
+    # step4 组装到输出数据中
+    routeData["route_desc"] = []
+    for i in range(route.days):
+        desc = {}
+        desc["didx"] = i+1
+        desc["desc"] = route.desc_by_day[i]
+        desc["highlight"] = route.highlight_by_day[i]
     
-    print '\n'.join(route.desc_by_day)
+    debug_info = route_debugger(route)   # 输出调试信息
+    print debug_info
+
     return True
 
 if __name__ == "__main__":
     
+    # test
     data = json.loads(open("data/route_result.txt",'r').read().strip())["data"]
     
     highlight_gen(data)
-
+    
+    # batch test

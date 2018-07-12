@@ -5,10 +5,30 @@
     @desc: 加载模型文件，包括：数据库，本地模版模型
 '''
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 from common import *
 from common_class import *
 from route_parser import city_parser, view_parser
 import db
+
+def load_once():
+    # 读数据库速度受限，只读一次，将数据写入本地文件
+
+    fpath = "./model/intro.model"
+
+    with open(fpath,'w') as w:
+        for item in db.QueryBySQL(LABELDATA_IP, LABELDATA_DB, "select * from %s where 1"%CONTENT_TABLE):
+            vid = item["poi_id"]
+            content = json.loads(item["content"])
+            name = content["cn"]["name_cn"]["val"]
+            intro = content["cn"]["modifier_prefix"]["val"] + name + content["cn"]["modifier_suffix"]["val"]
+
+            w.write(vid + '\t' + name + '\t' + intro + '\n')
+
+    return True
 
 def load_database(cities, views):
     # 加载数据库数据
@@ -49,6 +69,13 @@ def load_database(cities, views):
 
     # 加载attraction信息
     print "加载view信息..."
+    # 先读取本地intro.model
+    intros = defaultdict(str)
+    for line in open('./model/intro.model','r'):
+        items = line.strip().split('\t')
+        if len(items) != 3: continue
+        intros[items[0].strip()] = items[2].strip()
+
     for item in attr_infos:
         if item["status_online"] != 'Open' and item["status_test"] != 'Open': continue
         if len(item["map_info"].split(',')) != 2: continue
@@ -63,8 +90,17 @@ def load_database(cities, views):
     
         view.rank_region = int(float(view.rank) / cities[view.cid].view_num * 100)
 
+        # 补充corpus
+        if intros[view.vid] == "" or intros[view.vid] == "NULL" or intros[view.vid] == view.name:
+            city = None
+            if cities.has_key(view.cid):
+                city = cities[view.cid]
+            view.intro = get_util_intro(city,view)
+        else:
+            view.intro = intros[view.vid]
+        
         views[view.vid] = view
-
+    
     print "加载view信息成功，共加载%d个view"%len(views)
 
     return True
@@ -306,6 +342,8 @@ if __name__ == "__main__":
     cross_validate(words, features, corpus, entries, sentences, highlights)
 
     cities, views = {}, {}
-    #load_database(cities, views)       # 耗时较长 不要随便测试
+    load_database(cities, views)       # 耗时较长 不要随便测试
     load_virtual_POI(cities, views)
+
+    #load_once()    # 只需运行一次
 

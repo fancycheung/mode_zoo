@@ -123,6 +123,8 @@ class View:
         self.alias = []         # 景点特色名
         self.cid = "NULL"       # 所在城市ID
         self.mapinfo = (0.0,0.0)   # (经度，纬度) 
+
+        self.intro = "NULL"
         
         # 特殊标记区
         self.type_tag = "N"   # N: 普通景点; C: 市中心(用于指代自由活动); A: 机场; S: 火车站; H: 酒店;
