@@ -16,6 +16,8 @@ pattern_module_utils.py "模板模块相关脚本" <br>
 
 > 使用C++模板打标签流程：原始评论 --> 按规则分句,加上评论id和分句id，见preprocess_for_pattern_module.py，输出为infile --> 打包，pack_infile(infile,outfile1) --> c++模板程序(outfile1,outfile2) --> 解包，unpack_outfile(outfile2,outfile3)
 
+> fasttext算法，整体流程：文本预处理 --> gensim库训练词向量或者导入训练好的词向量 --> 使用fasttext库训练模型 --> 导入训练好的模型，进行验证、预测
+
 > fasttext模型，要求的文件格式,每行为,比如两个标签的评论,comment为评论:\_\_label1\_\_ \_\_label2\_\_ comment
 
 ---------

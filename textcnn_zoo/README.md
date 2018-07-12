@@ -12,6 +12,8 @@ cache_pickle "缓存的中英文词向量、训练集、验证集" <br>
 textrcnn_model.py "textrcnn模型,完成多标签测试，需要按照textcnn相关内容，补充textrcnn_train.py,textrcnn_predict.py"<br>
 textrnn_model.py "textrnn模型,完成单一标签测试，需要按照textcnn相关内容，完成多标签测试，并补充textrnn_train.py,textrnn_predict.py"<br>
 
+> textcnn算法流程：文本预处理 --> gensim库训练词向量或者导入训练好的词向量 --> 建立词汇表(可直接从训练好的词向量中提取)，将文本用词汇表的索引表示 --> 建立标签库，将标签用索引表示，多标签用向量表示(multi-hot) --> 建立textcnn模型的训练集、验证集 --> 训练并保存最佳模型 --> --> 导入训练好的模型，进行验证或预测
+
 ----
 
 ## *使用方法* 
