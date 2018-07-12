@@ -145,6 +145,9 @@ def main(_):
             return
         feed_dict = {textCNN.input_x:testX,textCNN.input_y:testY,textCNN.dropout_keep_prob:1.0}
         test_loss,logits = sess.run([textCNN.loss_val,textCNN.logits],feed_dict=feed_dict)
+        # 这里是验证，所以有loss，如果只预测，就不用loss，feed_dict也不用textCNN.input_y
+        # feed_dict = {textCNN.input_x:testX,textCNN.dropout_keep_prob:1.0}
+        # logits = sess.run([textCNN.logits],feed_dict=feed_dict)
         predict_y = predict_label(logits)
         save_predict(predict_y,file='./result_%s.txt' % _LANG,voc=vocabulary_index2word_label)
         
