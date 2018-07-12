@@ -20,6 +20,8 @@ pattern_module_utils.py "模板模块相关脚本" <br>
 
 > fasttext模型，要求的文件格式,每行为,比如两个标签的评论,comment为评论:\_\_label1\_\_ \_\_label2\_\_ comment
 
+> 需要安装的库：**jieba、langid、textblob、nltk、tqdm、snownlp、pandas、tflearn、tensorflow(v1.2)、fasttext(python2.7)**
+
 ---------
 
 ## *使用方法* 
