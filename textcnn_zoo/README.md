@@ -1,7 +1,7 @@
 # **textcnn**  <br>
 ## *文件介绍* <br>
 textcnn_model.py "textcnn模型" <br>
-textcnn_train.py "训练teixtcnn" <br>
+textcnn_train.py "训练textcnn" <br>
 textcnn_predict.py "预测" <br>
 tc_utils.py "textcnn utils" <br>
 tc_view.py "格式化展示结果" <br>
@@ -9,6 +9,8 @@ textcnn_checkpoint_en "en checkpoint" <br>
 textcnn_checkpoint_zh "zh checkpoint" <br>
 tf_board "tensorboard" <br>
 cache_pickle "缓存的中英文词向量、训练集、验证集" <br>
+textrcnn_model.py "textrcnn模型,完成多标签测试，需要按照textcnn相关内容，补充textrcnn_train.py,textrcnn_predict.py"
+textrnn_model.py "textrnn模型,完成单一标签测试，需要按照textcnn相关内容，完成多标签测试，并补充textrcnn_train.py,textrcnn_predict.py"
 
 ----
 
