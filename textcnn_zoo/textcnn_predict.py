@@ -15,14 +15,14 @@ import pickle
 from tc_utils import create_voabulary,create_voab_label,load_data,load_word2vec,softmax,evaluate,batch_iter
 import time
 
-FLAGS=tf.app.flags.FLAGS
+FLAGS=tf.app.flags.FLAGS  # 相应参数需要与train.py一致
 tf.app.flags.DEFINE_integer("num_classes",16,"number of label")
 tf.app.flags.DEFINE_float("learning_rate",0.01,"learning rate")
 tf.app.flags.DEFINE_integer("batch_size", 1, "Batch size for training/evaluating.") 
 tf.app.flags.DEFINE_integer("decay_steps", 100, "how many steps before decay learning rate.") 
 tf.app.flags.DEFINE_float("decay_rate", 0.65, "Rate of decay for learning rate.") 
 tf.app.flags.DEFINE_integer("sentence_len",200,"max sentence length")
-tf.app.flags.DEFINE_boolean("is_training",False,"is traning.true:tranining,false:testing/inference")
+tf.app.flags.DEFINE_boolean("is_training",False,"is traning.true:tranining,false:testing/inference") #此处不同，改为False
 tf.app.flags.DEFINE_integer("num_epochs",10,"number of epochs to run.")
 tf.app.flags.DEFINE_integer("validate_every",1, "Validate every validate_every epochs.") 
 tf.app.flags.DEFINE_boolean("use_embedding",True,"whether to use embedding or not.")
@@ -46,6 +46,7 @@ def main(_):
     time_start = time.time()
 
     def save_predict(predict_y,voc,file):
+        ''' 保存模型预测的label为固定格式'''
         print(predict_y)
         with open(file,'w') as f:
             for i in range(len(predict_y)):
@@ -63,11 +64,12 @@ def main(_):
                     line = "__label__"+label
                 f.write(line+"\n")
 
-    def predict_label(logits):
+    def predict_label(logits,tmp_gate=0.01):
+        '''根据logits预测label，选择可不同阈值'''
         probs = softmax(logits)
         labels = []
         for prob in probs:
-            con = np.greater_equal(prob,[0.01]*16)
+            con = np.greater_equal(prob,[tmp_gate]*16)
             tmp = list(np.argwhere(con == True))
             label = [x[0] for x in tmp]
             if sum(label) < 1:
@@ -76,8 +78,9 @@ def main(_):
         return labels
 
     def predict_label_top_k(sess,eval_return,batch_size=1):
-        top_number = eval_return[0]
-        probs = eval_return[1]
+        '''旧方案，预测topk标签，k可固定，若动态确定，需要修改model模块'''
+        top_number = eval_return[0] #k
+        probs = eval_return[1] # probs,已经由logits转为prob
         ones = tf.ones(shape=top_number.shape,dtype=tf.float32)
         top_number = tf.cast(tf.where(tf.greater(top_number,ones),top_number,ones),dtype=tf.int32)
 
@@ -113,13 +116,13 @@ def main(_):
         vocab_size = len(vocabulary_word2index) 
         print("cnn_model_vocab_size:",vocab_size)
 
-        testX,testY = load_data(vocabulary_word2index, vocabulary_word2index_label,training_data_path=FLAGS.traning_data_path,cache_path='')
+        testX,testY = load_data(vocabulary_word2index, vocabulary_word2index_label,training_data_path=FLAGS.traning_data_path,cache_path='') #导入测试集
         print("testX:",len(testX),"testY:",len(testY))
 
         testY = pad_y(testY)
         testX = pad_sequences(testX, maxlen=FLAGS.sentence_len, value=0.)
             
-        with open(cache_test_data_path, 'ab') as data_f:
+        with open(cache_test_data_path, 'ab') as data_f: #缓存，方便多次测试
             pickle.dump((np.array(testX),np.array(testY)),data_f)
         print("dump data end!")
 
@@ -137,7 +140,7 @@ def main(_):
         textCNN=TextCNN(filter_sizes,FLAGS.num_filters,FLAGS.num_classes, FLAGS.learning_rate, FLAGS.batch_size, FLAGS.decay_steps,
                         FLAGS.decay_rate,FLAGS.sentence_len,vocab_size,FLAGS.embed_size,FLAGS.is_training,multi_label_flag=FLAGS.multi_label_flag)
         saver=tf.train.Saver()
-        if os.path.exists(FLAGS.ckpt_dir+"checkpoint"):
+        if os.path.exists(FLAGS.ckpt_dir+"checkpoint"):#载入训练好的模型
             print("Restoring Variables from Checkpoint")
             saver.restore(sess,tf.train.latest_checkpoint(FLAGS.ckpt_dir))
         else:
