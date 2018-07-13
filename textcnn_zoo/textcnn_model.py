@@ -214,7 +214,7 @@ def test():
 #           print("W_projection_value_:",W_projection_value)
            
 if __name__ == "__main__":
-    test()
+    #test()#需要自己建立新的测试集，修改相应参数来测试。代码里是旧的测试集
 
 
 
