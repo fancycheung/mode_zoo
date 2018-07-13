@@ -13,6 +13,7 @@ merge_shuffle_trian_data.py "打乱样本、加权抽样、统计词汇" <br>
 model_evaluate.py "评估模型测试结果，输入文件1，文件2，均为fasttext要求的格式" <br>
 preprocess_for_pattern_module.py "模板模块预处理,评论按规则分句,加上评论id和分句id" <br>
 pattern_module_utils.py "模板模块相关脚本" <br>
+gensim_w2c.py "gensim训练词向量脚本，需自己先文本预处理，制作训练集"<br>
 
 > 使用C++模板打标签流程：原始评论 --> 按规则分句,加上评论id和分句id，见preprocess_for_pattern_module.py，输出为infile --> 打包，pack_infile(infile,outfile1) --> c++模板程序(outfile1,outfile2) --> 解包，unpack_outfile(outfile2,outfile3)
 
